@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
+const GameResults = require("./MongoOperations.js");
 
 app.use(
   express.json({
@@ -8,7 +9,18 @@ app.use(
   })
 );
 app.post(`/api`, async (req, res) => {
-  res.json({ answer: Check(req.body.blocks) });
+  var result = Check(req.body.blocks);
+  if (result != "") {
+    if (result.includes("Zero")) {
+      result = req.body.first;
+    } else {
+      result = req.body.second;
+    }
+    await GameResults.SaveGameResult(req.body.first, req.body.second, result);
+    res.json({ answer: `Winner ${result}` });
+  } else {
+    res.json({ answer: result });
+  }
 });
 function Check(field) {
   for (let index = 0; index < field.length; index += 3) {

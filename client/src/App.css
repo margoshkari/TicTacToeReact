@@ -1,11 +1,22 @@
-.App {
+.Page{
   background-color: rgba(225, 245, 219, 0.8);
-  text-align: center;
+  width: 100%;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.data{
+  margin-right: 5%;
+}
+.App {
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+input{
+  height: 20px;
 }
 .grid{
   display: grid;
